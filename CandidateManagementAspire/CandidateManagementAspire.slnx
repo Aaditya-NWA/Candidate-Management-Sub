@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/CandidateManagementUnitTests/">
+    <Project Path="CandidateService.Tests/CandidateService.Tests.csproj" />
+    <Project Path="InterviewService.Tests/InterviewService.Tests.csproj" Id="a30e3c85-148b-4d8a-bf08-0f351062b95e" />
+  </Folder>
+  <Project Path="../CandidateManagement/CandidateService/CandidateService.csproj" />
+  <Project Path="../CandidateManagement/InterviewService/InterviewService.csproj" />
+  <Project Path="../CandidateManagement/ReportService/ReportService.csproj" />
+  <Project Path="../CandidateManagement/RequirementService/RequirementService.csproj" />
+  <Project Path="../GatewayAPI/GatewayAPI.csproj" />
+  <Project Path="CandidateManagementAspire.ApiService/CandidateManagementAspire.ApiService.csproj" />
+  <Project Path="CandidateManagementAspire.AppHost/CandidateManagementAspire.AppHost.csproj" />
+  <Project Path="CandidateManagementAspire.ServiceDefaults/CandidateManagementAspire.ServiceDefaults.csproj" />
+  <Project Path="CandidateManagementAspire.Web/CandidateManagementAspire.Web.csproj" />
+</Solution>
