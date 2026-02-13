@@ -1,31 +1,32 @@
 ﻿using GatewayAPI.DTOs.Requirements;
-using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
 
-namespace GatewayAPI.Services;
-
-[ExcludeFromCodeCoverage]
-public class RequirementClient
+namespace GatewayAPI.Services
 {
-    private readonly HttpClient _http;
-
-    public RequirementClient(HttpClient http)
+    public class RequirementClient
     {
-        _http = http;
-    }
+        private readonly HttpClient _httpClient;
 
-    public Task<HttpResponseMessage> CreateAsync(CreateRequirementRequest request)
-    {
-        return _http.PostAsJsonAsync("/api/requirements", request);
-    }
+        public RequirementClient(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
 
-    public Task<HttpResponseMessage> GetAllAsync()
-    {
-        return _http.GetAsync("/api/requirements");
-    }
+        public async Task<HttpResponseMessage> CreateAsync(CreateRequirementDto dto)
+        {
+            return await _httpClient.PostAsJsonAsync(
+                "/api/Requirements",
+                dto);
+        }
 
-    public Task<HttpResponseMessage> GetByIdAsync(int id)
-    {
-        return _http.GetAsync($"/api/requirements/{id}");
+        public async Task<HttpResponseMessage> GetAllAsync()
+        {
+            return await _httpClient.GetAsync("/api/Requirements");
+        }
+
+        public async Task<HttpResponseMessage> GetByIdAsync(int id)
+        {
+            return await _httpClient.GetAsync($"/api/Requirements/{id}");
+        }
     }
 }

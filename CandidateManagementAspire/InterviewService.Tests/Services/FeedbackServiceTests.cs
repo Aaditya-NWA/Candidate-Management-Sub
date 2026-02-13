@@ -51,19 +51,27 @@ public class FeedbackServiceTests
     [Test]
     public async Task GetByInterviewAsync_WhenExists_ReturnsFeedback()
     {
-        var db = TestDbContextFactory.Create(nameof(GetByInterviewAsync_WhenExists_ReturnsFeedback));
+        var context = TestDbContextFactory.Create(
+            nameof(GetByInterviewAsync_WhenExists_ReturnsFeedback));
 
         var interview = new Interview { Status = InterviewStatus.Completed };
-        db.Interviews.Add(interview);
-        db.Feedbacks.Add(new Feedback { InterviewId = interview.Id, Comments = "Good" });
-        await db.SaveChangesAsync();
+        context.Interviews.Add(interview);
+        await context.SaveChangesAsync();
 
-        var service = new FeedbackService(db);
+        var feedback = new Feedback
+        {
+            InterviewId = interview.Id,
+            Comments = "ok"
+        };
+        context.Feedbacks.Add(feedback);
+        await context.SaveChangesAsync();
+
+        var service = new FeedbackService(context);
 
         var result = await service.GetByInterviewAsync(interview.Id);
 
         Assert.That(result, Is.Not.Null);
-        Assert.That(result!.Comments, Is.EqualTo("Good"));
+        Assert.That(result!.Comments, Is.EqualTo("ok"));
     }
 
     [Test]
@@ -80,6 +88,59 @@ public class FeedbackServiceTests
         var updated = await service.UpdateFeedbackAsync(feedback.Id, "New");
 
         Assert.That(updated.Comments, Is.EqualTo("New"));
+    }
+    [Test]
+    public void AddFeedback_InterviewNotFound_Throws()
+    {
+        var context = TestDbContextFactory.Create(
+            nameof(AddFeedback_InterviewNotFound_Throws));
+
+        var service = new FeedbackService(context);
+
+        Assert.ThrowsAsync<DomainValidationException>(() =>
+            service.AddFeedbackAsync(999, "test"));
+    }
+
+    [Test]
+    public async Task AddFeedback_WhenFeedbackAlreadyExists_Throws()
+    {
+        var context = TestDbContextFactory.Create(
+            nameof(AddFeedback_WhenFeedbackAlreadyExists_Throws));
+
+        var interview = new Interview
+        {
+            Status = InterviewStatus.Completed
+        };
+
+        context.Interviews.Add(interview);
+        await context.SaveChangesAsync();
+
+        context.Feedbacks.Add(new Feedback
+        {
+            InterviewId = interview.Id,
+            Comments = "existing"
+        });
+        await context.SaveChangesAsync();
+
+        var service = new FeedbackService(context);
+
+        Assert.ThrowsAsync<DomainValidationException>(() =>
+            service.AddFeedbackAsync(interview.Id, "new"));
+    }
+
+    
+
+    [Test]
+    public async Task GetByInterviewAsync_WhenMissing_ReturnsNull()
+    {
+        var context = TestDbContextFactory.Create(
+            nameof(GetByInterviewAsync_WhenMissing_ReturnsNull));
+
+        var service = new FeedbackService(context);
+
+        var result = await service.GetByInterviewAsync(123);
+
+        Assert.That(result, Is.Null);
     }
 
 

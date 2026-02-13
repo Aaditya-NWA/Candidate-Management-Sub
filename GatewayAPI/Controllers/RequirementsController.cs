@@ -1,14 +1,12 @@
 ﻿using GatewayAPI.DTOs.Requirements;
 using GatewayAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
 namespace GatewayAPI.Controllers;
 
 [ApiController]
 [Route("api/requirements")]
-[ExcludeFromCodeCoverage]
 public class RequirementsController : ControllerBase
 {
     private readonly RequirementClient _client;
@@ -19,17 +17,16 @@ public class RequirementsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateRequirementRequest request)
+    public async Task<IActionResult> CreateRequirement(CreateRequirementDto dto)
     {
-        var response = await _client.CreateAsync(request);
+        var response = await _client.CreateAsync(dto);
 
         if (!response.IsSuccessStatusCode)
             return StatusCode((int)response.StatusCode);
 
-        var body = await response.Content
-            .ReadFromJsonAsync<RequirementResponse>();
+        var body = await response.Content.ReadAsStringAsync();
 
-        return Created(string.Empty, body);
+        return StatusCode((int)response.StatusCode, body);
     }
 
     [HttpGet]

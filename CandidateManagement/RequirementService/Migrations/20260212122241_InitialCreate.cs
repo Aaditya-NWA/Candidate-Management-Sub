@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -16,11 +17,13 @@ namespace RequirementService.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SkillSet = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ExperienceMonths = table.Column<int>(type: "int", nullable: false),
-                    OpenPositions = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Project = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SkillsNeeded = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MinExperienceMonths = table.Column<int>(type: "int", nullable: false),
+                    MaxExperienceMonths = table.Column<int>(type: "int", nullable: false),
+                    AvailabilityStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AvailabilityEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ClientInterviewRequired = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

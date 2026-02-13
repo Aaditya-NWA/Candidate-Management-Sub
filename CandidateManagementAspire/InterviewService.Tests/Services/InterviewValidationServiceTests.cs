@@ -264,5 +264,66 @@ public class InterviewValidationServiceTests
                 clientInterviewRequired: true,
                 isFirstInterview: true));
     }
+    [Test]
+    public void ValidateInterviewLevel_Internal_NotFirstInterview_Passes()
+    {
+        var service = new InterviewValidationService(null!);
+
+        Assert.DoesNotThrow(() =>
+            service.ValidateInterviewLevel(
+                InterviewLevel.Internal,
+                clientInterviewRequired: false,
+                isFirstInterview: false));
+    }
+    [Test]
+    public void ValidateInterviewLevel_FirstInterview_Internal_Passes()
+    {
+        var service = new InterviewValidationService(null!);
+
+        Assert.DoesNotThrow(() =>
+            service.ValidateInterviewLevel(
+                InterviewLevel.Internal,
+                clientInterviewRequired: true,
+                isFirstInterview: true));
+    }
+    [Test]
+    public void ValidateInterviewLevel_ClientInterviewAllowed_Passes()
+    {
+        var service = new InterviewValidationService(null!);
+
+        Assert.DoesNotThrow(() =>
+            service.ValidateInterviewLevel(
+                InterviewLevel.Client,
+                clientInterviewRequired: true,
+                isFirstInterview: false));
+    }
+
+
+
+    [Test]
+    public void ValidateInterviewLevel_NotFirstInterview_Internal_Passes()
+    {
+        var service = new InterviewValidationService(null!);
+
+        Assert.DoesNotThrow(() =>
+            service.ValidateInterviewLevel(
+                InterviewLevel.Internal,
+                clientInterviewRequired: false,
+                isFirstInterview: false));
+    }
+    [Test]
+    public void ValidateInterviewLevel_NotClientInterview_Passes()
+    {
+        var service = new InterviewValidationService(null!);
+
+        Assert.DoesNotThrow(() =>
+            service.ValidateInterviewLevel(
+                InterviewLevel.Internal,
+                clientInterviewRequired: false,
+                isFirstInterview: true));
+    }
+
+
+
 
 }
