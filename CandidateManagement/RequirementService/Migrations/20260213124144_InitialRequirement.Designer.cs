@@ -12,8 +12,8 @@ using RequirementService.Data;
 namespace RequirementService.Migrations
 {
     [DbContext(typeof(RequirementDbContext))]
-    [Migration("20260212122241_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260213124144_InitialRequirement")]
+    partial class InitialRequirement
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

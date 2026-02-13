@@ -1,14 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace InterviewService.Migrations
 {
-    [ExcludeFromCodeCoverage]
     /// <inheritdoc />
-    public partial class InitialInterviewSchema : Migration
+    public partial class InitialInterview : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

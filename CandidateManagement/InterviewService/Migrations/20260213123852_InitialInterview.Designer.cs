@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InterviewService.Migrations
 {
     [DbContext(typeof(InterviewDbContext))]
-    [Migration("20260209113923_InitialInterviewSchema")]
-    partial class InitialInterviewSchema
+    [Migration("20260213123852_InitialInterview")]
+    partial class InitialInterview
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
